@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/style.css" />
+    <title>CS 411 Course Project</title>
+    <!-- <script type="text/javascript">
+    function CheckCondition(val){
+      var elementTable = document.getElementById('createTable');
+      if (val == 'create')
+        elementTable.style.display = 'block';
+      else  
+        elementTable.style.display = 'none';
+    }
+    </script>  -->
+  </head>
+  <body>
+    <div class="container">
+      <h1>IS 411: COVID-19 Data Extractor</h1>
+      {% if message %}
+      <p class="message">
+        {{ message | safe }}
+      </p>
+      {% endif %}
+      <form action="/submit" method="POST">
+        <div class="form-group">
+          <h3>Operation to perform</h3>
+          <select name="operation">
+            <option value="">Select Action</option>
+            <option value="create">Insert</option>
+            <option value="read">Read</option>
+            <option value="update">Update</option>
+            <option value="delete">Delete</option>
+            <option value="advancequery_1">Advance Query 1</option>
+            <option value="advancequery_2">Advance Query 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <h3>Table to modify/create</h3>
+          <select name="table">
+            <option value="">Select Table</option>
+            <option value="Patients">Patients</option>
+            <option value="Hospitalizations">Hospitalizations</option>
+            <option value="Epidemiology">Epidemiology</option>
+            <option value="Health">Health</option>
+            <option value="Vaccinations">Vaccinations</option>
+          </select>
+          <!-- <textarea 
+            class="newTableName"
+            name="newtable" 
+            id="createTable" 
+            placeholder="Please type in your new table's name"
+            style='display:none;'
+          ></textarea> -->
+        </div>
+        <!-- A reference for all columns in the tables -->
+        <b>All Columns in the tables</b>
+        <ul>
+          <li>Patients
+            <table>
+              <tr>
+                <th>PatientName</th>
+                <th>PatientId</th>
+                <th>Region</th>
+              </tr>
+            </table>
+          </li>
+          <li>Hospitalization 
+            <table>
+              <tr>
+                <th>Region</th>
+                <th>Date</th>
+                <th>Current_ventilator_patients</th>
+                <th>Current_hospitalized_patients</th>
+                <th>Current_intensive_care_patients</th>
+              </tr>
+            </table>
+          </li>
+          <li>Epidemiology
+            <table>
+              <tr>
+                <th>Region</th>
+                <th>Date</th>
+                <th>Cumulative_confirmed</th>
+                <th>Cumulative_deceased</th>
+                <th>Cumulative_recovered</th>
+                <th>Cumulative_tested</th>
+              </tr>
+            </table>
+          </li>
+          <li>Health
+            <table>
+              <tr>
+                <th>Region</th>
+                <th>Life_expectancy</th>
+                <th>Smoking_prevalence</th>
+                <th>Diabetes_prevalence</th>
+                <th>Health_expenditure</th>
+              </tr>
+            </table>
+          </li>
+          <li>Vaccinations
+            <table>
+              <tr>
+                <th>PatientId</th>
+                <th>Fully_vaccinated</th>
+                <th>Have_booster</th>
+              </tr>
+            </table>
+          </li>
+        </ul>
+        <!-- To add Columns -->
+        <div class="form-group">
+          <h3>Columns that you want to select</h3>
+          <textarea
+            name="ColumnOrValues"
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Please include your choice of columns here for reading/searching,&#10or names of new columns to be created,&#10or values you want to update based on the above column order.
+            &#10If you have update/delete operation, please do the following format:&#10PatientName,Xu Liu;&#10PatientId,0001;&#10Region,US"
+          ></textarea>
+        </div>
+        <!-- To add conditions -->
+        <div class="form-group">
+          <h3>Conditions for your operation (MUST have for read & delete!)</h3>
+          <textarea
+            name="conditions"
+            id=""
+            cols="30"
+            rows="10"
+            placeholder="Please include your conditions here (Just like 'Where' clause in SQL)
+            &#10If you have update/delete operation, please do the following format:&#10PatientName,Xu Liu;&#10PatientId,0001;&#10Region,US"
+          ></textarea>
+        </div>
+        <input type="submit" value="Submit" class="btn" />
+      </form>
+    </div>
+  </body>
+</html>
